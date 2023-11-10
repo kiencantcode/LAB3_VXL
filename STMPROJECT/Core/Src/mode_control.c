@@ -47,7 +47,7 @@ void modeRun(){
 			//In MODE2, we use button 2 and 3 to adjust duration of red light
 			if (timer2_flag == 1) {
 				setTimer2(500);
-				blinkingLeds();
+				blinkingRED();
 				if (seg_counter == 2) {
 					segRun2();
 					seg_counter = 0;
@@ -83,7 +83,7 @@ void modeRun(){
 		case MODE3:
 			if (timer2_flag == 1) {
 				setTimer2(500);
-				blinkingLeds();
+				blinkingYELLOW();
 				if (seg_counter == 2) {
 					segRun2();
 					seg_counter = 0;
@@ -116,7 +116,7 @@ void modeRun(){
 		case MODE4:
 			if (timer2_flag == 1) {
 				setTimer2(500);
-				blinkingLeds();
+				blinkingGREEN();
 				if (seg_counter == 2) {
 					segRun2();
 					seg_counter = 0;
