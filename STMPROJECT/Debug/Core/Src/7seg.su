@@ -1,0 +1,6 @@
+7seg.c:10:6:display7SEG_Mode	16	static
+7seg.c:112:6:display7SEG_Value	16	static
+7seg.c:214:6:update7SEG_Mode	16	static
+7seg.c:233:6:update7SEG_Value	16	static
+7seg.c:252:6:segRun1	8	static
+7seg.c:257:6:segRun2	8	static

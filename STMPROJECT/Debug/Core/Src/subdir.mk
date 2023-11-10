@@ -5,31 +5,49 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../Core/Src/7seg.c \
+../Core/Src/button.c \
+../Core/Src/global.c \
 ../Core/Src/main.c \
+../Core/Src/mode_control.c \
+../Core/Src/normal_mode.c \
 ../Core/Src/software_timer.c \
 ../Core/Src/stm32f1xx_hal_msp.c \
 ../Core/Src/stm32f1xx_it.c \
 ../Core/Src/syscalls.c \
 ../Core/Src/sysmem.c \
-../Core/Src/system_stm32f1xx.c 
+../Core/Src/system_stm32f1xx.c \
+../Core/Src/traffic_control.c 
 
 OBJS += \
+./Core/Src/7seg.o \
+./Core/Src/button.o \
+./Core/Src/global.o \
 ./Core/Src/main.o \
+./Core/Src/mode_control.o \
+./Core/Src/normal_mode.o \
 ./Core/Src/software_timer.o \
 ./Core/Src/stm32f1xx_hal_msp.o \
 ./Core/Src/stm32f1xx_it.o \
 ./Core/Src/syscalls.o \
 ./Core/Src/sysmem.o \
-./Core/Src/system_stm32f1xx.o 
+./Core/Src/system_stm32f1xx.o \
+./Core/Src/traffic_control.o 
 
 C_DEPS += \
+./Core/Src/7seg.d \
+./Core/Src/button.d \
+./Core/Src/global.d \
 ./Core/Src/main.d \
+./Core/Src/mode_control.d \
+./Core/Src/normal_mode.d \
 ./Core/Src/software_timer.d \
 ./Core/Src/stm32f1xx_hal_msp.d \
 ./Core/Src/stm32f1xx_it.d \
 ./Core/Src/syscalls.d \
 ./Core/Src/sysmem.d \
-./Core/Src/system_stm32f1xx.d 
+./Core/Src/system_stm32f1xx.d \
+./Core/Src/traffic_control.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

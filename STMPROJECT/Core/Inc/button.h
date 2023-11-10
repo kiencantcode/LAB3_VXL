@@ -8,7 +8,7 @@
 #ifndef INC_BUTTON_H_
 #define INC_BUTTON_H_
 
-//#include "global.h"
+#include "global.h"
 
 #define BUTTON_1_PRESS				0
 #define BUTTON_2_PRESS				1

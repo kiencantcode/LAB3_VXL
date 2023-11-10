@@ -23,6 +23,8 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "software_timer.h"
+#include "normal_mode.h"
+#include "mode_control.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -91,16 +93,13 @@ int main(void)
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT(&htim2);
   /* USER CODE END 2 */
-  setTimer1(1000);
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  initValues();
   while (1)
   {
     /* USER CODE END WHILE */
-	  if(timer1_flag == 1){
-		  HAL_GPIO_TogglePin(RED_1_GPIO_Port, RED_1_Pin);
-		  setTimer1(1000);
-	  }
+	  modeRun();
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -245,7 +244,7 @@ static void MX_GPIO_Init(void)
 /* USER CODE BEGIN 4 */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 	timerRun();
-//	getKeyInput();
+	getKeyInput();
 }
 /* USER CODE END 4 */
 

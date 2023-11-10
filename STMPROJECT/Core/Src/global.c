@@ -10,7 +10,7 @@
 
 int mode = INIT;
 int status = 0;
-int state = init;
+int state = RED_GREEN_INIT;
 
 int yellowTime;
 int greenTime;

@@ -11,10 +11,10 @@
 #include "main.h"
 #include "software_timer.h"
 #include "button.h"
-//#include "traffic_control.h"
-//#include "mode_specify.h"
-//#include "mode_control.h"
-//#include "led_display.h"
+#include "traffic_control.h"
+#include "mode_control.h"
+#include "normal_mode.h"
+#include "7seg.h"
 
 #define TIMER_CYCLE		10
 
