@@ -55,7 +55,7 @@ void modeRun(){
 				}
 				counter++;
 			}
-			//press button 1
+			//press button 1 -> MODE 3 -> modify YELLOW LED
 			if (isButtonPressed(BUTTON_1_PRESS) == 1) {
 				setTimer2(500);
 				temp = yellowTime;
@@ -91,6 +91,7 @@ void modeRun(){
 				}
 				counter++;
 			}
+			//press button 1 -> MODE 4 -> modify GREEN LED
 			if (isButtonPressed(BUTTON_1_PRESS) == 1) {
 				setTimer2(500);
 				temp = greenTime;

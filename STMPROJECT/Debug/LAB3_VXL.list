@@ -27,23 +27,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
  11 .ARM.attributes 00000029  00000000  00000000  00020040  2**0
                   CONTENTS, READONLY
- 12 .debug_info   000098e0  00000000  00000000  00020069  2**0
+ 12 .debug_info   000098df  00000000  00000000  00020069  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_abbrev 00001c10  00000000  00000000  00029949  2**0
+ 13 .debug_abbrev 00001bf8  00000000  00000000  00029948  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_aranges 00000ab8  00000000  00000000  0002b560  2**3
+ 14 .debug_aranges 00000ab8  00000000  00000000  0002b540  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_ranges 000009a0  00000000  00000000  0002c018  2**3
+ 15 .debug_ranges 000009a0  00000000  00000000  0002bff8  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  000170ae  00000000  00000000  0002c9b8  2**0
+ 16 .debug_macro  000170ae  00000000  00000000  0002c998  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   0000c4fb  00000000  00000000  00043a66  2**0
+ 17 .debug_line   0000c4fb  00000000  00000000  00043a46  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    00082686  00000000  00000000  0004ff61  2**0
+ 18 .debug_str    00082686  00000000  00000000  0004ff41  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000053  00000000  00000000  000d25e7  2**0
+ 19 .comment      00000053  00000000  00000000  000d25c7  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  000029c4  00000000  00000000  000d263c  2**2
+ 20 .debug_frame  000029c4  00000000  00000000  000d261c  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -87,7 +87,7 @@ void display7SEG_Mode(int counter) {
  800014e:	b082      	sub	sp, #8
  8000150:	af00      	add	r7, sp, #0
  8000152:	6078      	str	r0, [r7, #4]
-	//led display number 0 by enable 6 ports as follow (reset state)
+
 	if (counter == 0) {
  8000154:	687b      	ldr	r3, [r7, #4]
  8000156:	2b00      	cmp	r3, #0
@@ -128,7 +128,7 @@ void display7SEG_Mode(int counter) {
  80001a8:	48c1      	ldr	r0, [pc, #772]	; (80004b0 <display7SEG_Mode+0x364>)
  80001aa:	f001 fd70 	bl	8001c8e <HAL_GPIO_WritePin>
 	}
-	//led display number 1 by enable 2 ports as follow (reset state)
+
 	if (counter == 1) {
  80001ae:	687b      	ldr	r3, [r7, #4]
  80001b0:	2b01      	cmp	r3, #1
@@ -169,7 +169,7 @@ void display7SEG_Mode(int counter) {
  8000202:	48ab      	ldr	r0, [pc, #684]	; (80004b0 <display7SEG_Mode+0x364>)
  8000204:	f001 fd43 	bl	8001c8e <HAL_GPIO_WritePin>
 	}
-	//led display number 2 by enable 5 ports as follow (reset state)
+
 	if (counter == 2) {
  8000208:	687b      	ldr	r3, [r7, #4]
  800020a:	2b02      	cmp	r3, #2
@@ -210,7 +210,7 @@ void display7SEG_Mode(int counter) {
  800025c:	4894      	ldr	r0, [pc, #592]	; (80004b0 <display7SEG_Mode+0x364>)
  800025e:	f001 fd16 	bl	8001c8e <HAL_GPIO_WritePin>
 	}
-	//led display number 3 by enable 5 ports as follow (reset state)
+
 	if (counter == 3) {
  8000262:	687b      	ldr	r3, [r7, #4]
  8000264:	2b03      	cmp	r3, #3
@@ -251,7 +251,7 @@ void display7SEG_Mode(int counter) {
  80002b6:	487e      	ldr	r0, [pc, #504]	; (80004b0 <display7SEG_Mode+0x364>)
  80002b8:	f001 fce9 	bl	8001c8e <HAL_GPIO_WritePin>
 	}
-	//led display number 4 by enable 4 ports as follow (reset state)
+
 	if (counter == 4) {
  80002bc:	687b      	ldr	r3, [r7, #4]
  80002be:	2b04      	cmp	r3, #4
@@ -292,7 +292,7 @@ void display7SEG_Mode(int counter) {
  8000310:	4867      	ldr	r0, [pc, #412]	; (80004b0 <display7SEG_Mode+0x364>)
  8000312:	f001 fcbc 	bl	8001c8e <HAL_GPIO_WritePin>
 	}
-	//led display number 5 by enable 5 ports as follow (reset state)
+
 	if (counter == 5) {
  8000316:	687b      	ldr	r3, [r7, #4]
  8000318:	2b05      	cmp	r3, #5
@@ -333,7 +333,7 @@ void display7SEG_Mode(int counter) {
  800036a:	4851      	ldr	r0, [pc, #324]	; (80004b0 <display7SEG_Mode+0x364>)
  800036c:	f001 fc8f 	bl	8001c8e <HAL_GPIO_WritePin>
 	}
-	//led display number 6 by enable 6 ports as follow (reset state)
+
 	if (counter == 6) {
  8000370:	687b      	ldr	r3, [r7, #4]
  8000372:	2b06      	cmp	r3, #6
@@ -374,7 +374,7 @@ void display7SEG_Mode(int counter) {
  80003c4:	483a      	ldr	r0, [pc, #232]	; (80004b0 <display7SEG_Mode+0x364>)
  80003c6:	f001 fc62 	bl	8001c8e <HAL_GPIO_WritePin>
 	}
-	//led display number 7 by enable 3 ports as follow (reset state)
+
 	if (counter == 7) {
  80003ca:	687b      	ldr	r3, [r7, #4]
  80003cc:	2b07      	cmp	r3, #7
@@ -415,7 +415,7 @@ void display7SEG_Mode(int counter) {
  800041e:	4824      	ldr	r0, [pc, #144]	; (80004b0 <display7SEG_Mode+0x364>)
  8000420:	f001 fc35 	bl	8001c8e <HAL_GPIO_WritePin>
 	}
-	//led display number 8 by enable 7 ports as follow (reset state)
+
 	if (counter == 8) {
  8000424:	687b      	ldr	r3, [r7, #4]
  8000426:	2b08      	cmp	r3, #8
@@ -456,7 +456,7 @@ void display7SEG_Mode(int counter) {
  8000478:	480d      	ldr	r0, [pc, #52]	; (80004b0 <display7SEG_Mode+0x364>)
  800047a:	f001 fc08 	bl	8001c8e <HAL_GPIO_WritePin>
 	}
-	//led display number 9 by enable 6 ports as follow (reset state)
+
 	if (counter == 9) {
  800047e:	687b      	ldr	r3, [r7, #4]
  8000480:	2b09      	cmp	r3, #9
@@ -513,7 +513,7 @@ void display7SEG_Value(int counter) {
  80004ee:	b082      	sub	sp, #8
  80004f0:	af00      	add	r7, sp, #0
  80004f2:	6078      	str	r0, [r7, #4]
-	//led display number 0 by enable 6 ports as follow (reset state)
+
 	if (counter == 0) {
  80004f4:	687b      	ldr	r3, [r7, #4]
  80004f6:	2b00      	cmp	r3, #0
@@ -554,7 +554,7 @@ void display7SEG_Value(int counter) {
  800053e:	48b7      	ldr	r0, [pc, #732]	; (800081c <display7SEG_Value+0x330>)
  8000540:	f001 fba5 	bl	8001c8e <HAL_GPIO_WritePin>
 	}
-	//led display number 1 by enable 2 ports as follow (reset state)
+
 	if (counter == 1) {
  8000544:	687b      	ldr	r3, [r7, #4]
  8000546:	2b01      	cmp	r3, #1
@@ -595,7 +595,7 @@ void display7SEG_Value(int counter) {
  800058e:	48a3      	ldr	r0, [pc, #652]	; (800081c <display7SEG_Value+0x330>)
  8000590:	f001 fb7d 	bl	8001c8e <HAL_GPIO_WritePin>
 	}
-	//led display number 2 by enable 5 ports as follow (reset state)
+
 	if (counter == 2) {
  8000594:	687b      	ldr	r3, [r7, #4]
  8000596:	2b02      	cmp	r3, #2
@@ -636,7 +636,7 @@ void display7SEG_Value(int counter) {
  80005de:	488f      	ldr	r0, [pc, #572]	; (800081c <display7SEG_Value+0x330>)
  80005e0:	f001 fb55 	bl	8001c8e <HAL_GPIO_WritePin>
 	}
-	//led display number 3 by enable 5 ports as follow (reset state)
+
 	if (counter == 3) {
  80005e4:	687b      	ldr	r3, [r7, #4]
  80005e6:	2b03      	cmp	r3, #3
@@ -677,7 +677,7 @@ void display7SEG_Value(int counter) {
  800062e:	487b      	ldr	r0, [pc, #492]	; (800081c <display7SEG_Value+0x330>)
  8000630:	f001 fb2d 	bl	8001c8e <HAL_GPIO_WritePin>
 	}
-	//led display number 4 by enable 4 ports as follow (reset state)
+
 	if (counter == 4) {
  8000634:	687b      	ldr	r3, [r7, #4]
  8000636:	2b04      	cmp	r3, #4
@@ -718,7 +718,7 @@ void display7SEG_Value(int counter) {
  800067e:	4867      	ldr	r0, [pc, #412]	; (800081c <display7SEG_Value+0x330>)
  8000680:	f001 fb05 	bl	8001c8e <HAL_GPIO_WritePin>
 	}
-	//led display number 5 by enable 5 ports as follow (reset state)
+
 	if (counter == 5) {
  8000684:	687b      	ldr	r3, [r7, #4]
  8000686:	2b05      	cmp	r3, #5
@@ -759,7 +759,7 @@ void display7SEG_Value(int counter) {
  80006ce:	4853      	ldr	r0, [pc, #332]	; (800081c <display7SEG_Value+0x330>)
  80006d0:	f001 fadd 	bl	8001c8e <HAL_GPIO_WritePin>
 	}
-	//led display number 6 by enable 6 ports as follow (reset state)
+
 	if (counter == 6) {
  80006d4:	687b      	ldr	r3, [r7, #4]
  80006d6:	2b06      	cmp	r3, #6
@@ -800,7 +800,7 @@ void display7SEG_Value(int counter) {
  800071e:	483f      	ldr	r0, [pc, #252]	; (800081c <display7SEG_Value+0x330>)
  8000720:	f001 fab5 	bl	8001c8e <HAL_GPIO_WritePin>
 	}
-	//led display number 7 by enable 3 ports as follow (reset state)
+
 	if (counter == 7) {
  8000724:	687b      	ldr	r3, [r7, #4]
  8000726:	2b07      	cmp	r3, #7
@@ -841,7 +841,7 @@ void display7SEG_Value(int counter) {
  800076e:	482b      	ldr	r0, [pc, #172]	; (800081c <display7SEG_Value+0x330>)
  8000770:	f001 fa8d 	bl	8001c8e <HAL_GPIO_WritePin>
 	}
-	//led display number 8 by enable 7 ports as follow (reset state)
+
 	if (counter == 8) {
  8000774:	687b      	ldr	r3, [r7, #4]
  8000776:	2b08      	cmp	r3, #8
@@ -882,7 +882,7 @@ void display7SEG_Value(int counter) {
  80007be:	4817      	ldr	r0, [pc, #92]	; (800081c <display7SEG_Value+0x330>)
  80007c0:	f001 fa65 	bl	8001c8e <HAL_GPIO_WritePin>
 	}
-	//led display number 9 by enable 6 ports as follow (reset state)
+
 	if (counter == 9) {
  80007c4:	687b      	ldr	r3, [r7, #4]
  80007c6:	2b09      	cmp	r3, #9
@@ -1214,8 +1214,6 @@ void getKeyInput() {
  8000a08:	4940      	ldr	r1, [pc, #256]	; (8000b0c <getKeyInput+0x128>)
  8000a0a:	687b      	ldr	r3, [r7, #4]
  8000a0c:	f841 2023 	str.w	r2, [r1, r3, lsl #2]
-
-		//Read signal from user
 		if (i == 0) {
  8000a10:	687b      	ldr	r3, [r7, #4]
  8000a12:	2b00      	cmp	r3, #0
@@ -1261,7 +1259,6 @@ void getKeyInput() {
  8000a5e:	f842 1023 	str.w	r1, [r2, r3, lsl #2]
 			BUTTON_3_Pin);
 		}
-		//debouncing step
 		if ((debounceButtonBuffer1[i] == debounceButtonBuffer2[i])
  8000a62:	4a2b      	ldr	r2, [pc, #172]	; (8000b10 <getKeyInput+0x12c>)
  8000a64:	687b      	ldr	r3, [r7, #4]
@@ -1296,7 +1293,6 @@ void getKeyInput() {
  8000aa6:	491d      	ldr	r1, [pc, #116]	; (8000b1c <getKeyInput+0x138>)
  8000aa8:	687b      	ldr	r3, [r7, #4]
  8000aaa:	f841 2023 	str.w	r2, [r1, r3, lsl #2]
-				//when pressed, do subKeyProcess()
 				if (buttonBuffer[i] == PRESSED_STATE) {
  8000aae:	4a19      	ldr	r2, [pc, #100]	; (8000b14 <getKeyInput+0x130>)
  8000ab0:	687b      	ldr	r3, [r7, #4]
@@ -1975,7 +1971,7 @@ void modeRun(){
  8000e7e:	4a59      	ldr	r2, [pc, #356]	; (8000fe4 <modeRun+0x25c>)
  8000e80:	6013      	str	r3, [r2, #0]
 			}
-			//press button 1
+			//press button 1 -> MODE 3 -> modify YELLOW LED
 			if (isButtonPressed(BUTTON_1_PRESS) == 1) {
  8000e82:	2000      	movs	r0, #0
  8000e84:	f7ff fd84 	bl	8000990 <isButtonPressed>
@@ -2090,6 +2086,7 @@ void modeRun(){
  8000f34:	4a2b      	ldr	r2, [pc, #172]	; (8000fe4 <modeRun+0x25c>)
  8000f36:	6013      	str	r3, [r2, #0]
 			}
+			//press button 1 -> MODE 4 -> modify GREEN LED
 			if (isButtonPressed(BUTTON_1_PRESS) == 1) {
  8000f38:	2000      	movs	r0, #0
  8000f3a:	f7ff fd29 	bl	8000990 <isButtonPressed>

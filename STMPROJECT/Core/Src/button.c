@@ -43,8 +43,6 @@ void getKeyInput() {
 	for (int i = 0; i < NUM_OF_BUTTONS; i++) {
 		debounceButtonBuffer1[i] = debounceButtonBuffer2[i];
 		debounceButtonBuffer2[i] = buttonBuffer[i];
-
-		//Read signal from user
 		if (i == 0) {
 			buttonBuffer[i] = HAL_GPIO_ReadPin(BUTTON_1_GPIO_Port,
 			BUTTON_1_Pin);
@@ -55,12 +53,10 @@ void getKeyInput() {
 			buttonBuffer[i] = HAL_GPIO_ReadPin(BUTTON_3_GPIO_Port,
 			BUTTON_3_Pin);
 		}
-		//debouncing step
 		if ((debounceButtonBuffer1[i] == debounceButtonBuffer2[i])
 				&& (debounceButtonBuffer2[i] == buttonBuffer[i])) {
 			if (buttonBuffer[i] != longPressButtonBuffer[i]) {
 				longPressButtonBuffer[i] = buttonBuffer[i];
-				//when pressed, do subKeyProcess()
 				if (buttonBuffer[i] == PRESSED_STATE) {
 					TimeOutForKeyPress[i] = TIME_OUT_FOR_KEY_PRESS;
 					subKeyProcess(i);
