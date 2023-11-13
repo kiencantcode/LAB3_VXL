@@ -36,19 +36,22 @@ void setTimer3(int duration) {
 void timerRun() {
 	if (timer1_counter > 0) {
 		timer1_counter--;
-	} else {
-		timer1_flag++;
+		if(timer1_counter <= 0){
+			timer1_flag = 1;
+		}
 	}
 
 	if (timer2_counter > 0) {
 		timer2_counter--;
-	} else {
-		timer2_flag++;
+		if(timer2_counter <= 0){
+			timer2_flag = 1;
+		}
 	}
 
 	if (timer3_counter > 0) {
 		timer3_counter--;
-	} else {
-		timer3_flag++;
+		if(timer3_counter <= 0){
+			timer3_flag = 1;
+		}
 	}
 }
