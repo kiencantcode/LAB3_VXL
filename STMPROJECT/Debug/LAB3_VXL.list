@@ -39,11 +39,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  17 .debug_line   0000c4eb  00000000  00000000  00043a66  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    0008269a  00000000  00000000  0004ff51  2**0
+ 18 .debug_str    00082686  00000000  00000000  0004ff51  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000053  00000000  00000000  000d25eb  2**0
+ 19 .comment      00000053  00000000  00000000  000d25d7  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  000029c4  00000000  00000000  000d2640  2**2
+ 20 .debug_frame  000029c4  00000000  00000000  000d262c  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -1827,8 +1827,8 @@ __STATIC_FORCEINLINE void __disable_irq(void)
 08000d88 <modeRun>:
 #include "mode_control.h"
 
-int seg_counter;
-int tempVal;
+int counter;
+int temp;
 
 void modeRun(){
  8000d88:	b580      	push	{r7, lr}
@@ -1846,7 +1846,7 @@ void modeRun(){
  8000da8:	08000f03 	.word	0x08000f03
  8000dac:	08000fb7 	.word	0x08000fb7
 	case INIT:
-		seg_counter = 2;
+		counter = 2;
  8000db0:	4b8c      	ldr	r3, [pc, #560]	; (8000fe4 <modeRun+0x25c>)
  8000db2:	2202      	movs	r2, #2
  8000db4:	601a      	str	r2, [r3, #0]
@@ -1862,7 +1862,7 @@ void modeRun(){
 		break;
  8000dc8:	e166      	b.n	8001098 <modeRun+0x310>
 	case MODE1:
-		//In MODE1, we have 2 traffic systems to control
+		//MODE 1 -> control 2 traffic system
 		mode1Run();
  8000dca:	f000 f973 	bl	80010b4 <mode1Run>
 		if (timer2_flag == 1) {
@@ -1873,7 +1873,7 @@ void modeRun(){
 			setTimer2(500);
  8000dd6:	f44f 70fa 	mov.w	r0, #500	; 0x1f4
  8000dda:	f000 fa37 	bl	800124c <setTimer2>
-			if (seg_counter == 2) {
+			if (counter == 2) {
  8000dde:	4b81      	ldr	r3, [pc, #516]	; (8000fe4 <modeRun+0x25c>)
  8000de0:	681b      	ldr	r3, [r3, #0]
  8000de2:	2b02      	cmp	r3, #2
@@ -1892,7 +1892,7 @@ void modeRun(){
  8000df8:	3b01      	subs	r3, #1
  8000dfa:	4a7d      	ldr	r2, [pc, #500]	; (8000ff0 <modeRun+0x268>)
  8000dfc:	6013      	str	r3, [r2, #0]
-				seg_counter = 0;
+				counter = 0;
  8000dfe:	4b79      	ldr	r3, [pc, #484]	; (8000fe4 <modeRun+0x25c>)
  8000e00:	2200      	movs	r2, #0
  8000e02:	601a      	str	r2, [r3, #0]
@@ -1901,14 +1901,14 @@ void modeRun(){
 				segRun1();
  8000e06:	f7ff fd9b 	bl	8000940 <segRun1>
 			}
-			seg_counter++;
+			counter++;
  8000e0a:	4b76      	ldr	r3, [pc, #472]	; (8000fe4 <modeRun+0x25c>)
  8000e0c:	681b      	ldr	r3, [r3, #0]
  8000e0e:	3301      	adds	r3, #1
  8000e10:	4a74      	ldr	r2, [pc, #464]	; (8000fe4 <modeRun+0x25c>)
  8000e12:	6013      	str	r3, [r2, #0]
 		}
-		//if we press button 1, system will change to MODE2
+		//MODE 2 -> Modify LED RED
 		if (isButtonPressed(BUTTON_1_PRESS) == 1) {
  8000e14:	2000      	movs	r0, #0
  8000e16:	f7ff fdbb 	bl	8000990 <isButtonPressed>
@@ -1918,7 +1918,7 @@ void modeRun(){
 			setTimer2(500);
  8000e22:	f44f 70fa 	mov.w	r0, #500	; 0x1f4
  8000e26:	f000 fa11 	bl	800124c <setTimer2>
-			tempVal = redTime;
+			temp = redTime;
  8000e2a:	4b72      	ldr	r3, [pc, #456]	; (8000ff4 <modeRun+0x26c>)
  8000e2c:	681b      	ldr	r3, [r3, #0]
  8000e2e:	4a72      	ldr	r2, [pc, #456]	; (8000ff8 <modeRun+0x270>)
@@ -1942,7 +1942,6 @@ void modeRun(){
 		break;
  8000e4a:	e11e      	b.n	800108a <modeRun+0x302>
 	case MODE2:
-			//In MODE2, we use button 2 and 3 to adjust duration of red light
 			if (timer2_flag == 1) {
  8000e4c:	4b66      	ldr	r3, [pc, #408]	; (8000fe8 <modeRun+0x260>)
  8000e4e:	681b      	ldr	r3, [r3, #0]
@@ -1953,14 +1952,14 @@ void modeRun(){
  8000e58:	f000 f9f8 	bl	800124c <setTimer2>
 				blinkingRED();
  8000e5c:	f000 fae0 	bl	8001420 <blinkingRED>
-				if (seg_counter == 2) {
+				if (counter == 2) {
  8000e60:	4b60      	ldr	r3, [pc, #384]	; (8000fe4 <modeRun+0x25c>)
  8000e62:	681b      	ldr	r3, [r3, #0]
  8000e64:	2b02      	cmp	r3, #2
  8000e66:	d105      	bne.n	8000e74 <modeRun+0xec>
 					segRun2();
  8000e68:	f7ff fd7e 	bl	8000968 <segRun2>
-					seg_counter = 0;
+					counter = 0;
  8000e6c:	4b5d      	ldr	r3, [pc, #372]	; (8000fe4 <modeRun+0x25c>)
  8000e6e:	2200      	movs	r2, #0
  8000e70:	601a      	str	r2, [r3, #0]
@@ -1969,14 +1968,14 @@ void modeRun(){
 					segRun1();
  8000e74:	f7ff fd64 	bl	8000940 <segRun1>
 				}
-				seg_counter++;
+				counter++;
  8000e78:	4b5a      	ldr	r3, [pc, #360]	; (8000fe4 <modeRun+0x25c>)
  8000e7a:	681b      	ldr	r3, [r3, #0]
  8000e7c:	3301      	adds	r3, #1
  8000e7e:	4a59      	ldr	r2, [pc, #356]	; (8000fe4 <modeRun+0x25c>)
  8000e80:	6013      	str	r3, [r2, #0]
 			}
-			//if we press button 1, system will change to MODE3
+			//press button 1
 			if (isButtonPressed(BUTTON_1_PRESS) == 1) {
  8000e82:	2000      	movs	r0, #0
  8000e84:	f7ff fd84 	bl	8000990 <isButtonPressed>
@@ -1986,7 +1985,7 @@ void modeRun(){
 				setTimer2(500);
  8000e8e:	f44f 70fa 	mov.w	r0, #500	; 0x1f4
  8000e92:	f000 f9db 	bl	800124c <setTimer2>
-				tempVal = yellowTime;
+				temp = yellowTime;
  8000e96:	4b59      	ldr	r3, [pc, #356]	; (8000ffc <modeRun+0x274>)
  8000e98:	681b      	ldr	r3, [r3, #0]
  8000e9a:	4a57      	ldr	r2, [pc, #348]	; (8000ff8 <modeRun+0x270>)
@@ -2007,43 +2006,43 @@ void modeRun(){
 				offAllLeds();
  8000eb2:	f000 fb1b 	bl	80014ec <offAllLeds>
 			}
-			//if we press button 2, duration of red light will increase 1s
+			//press button 2
 			if (isButtonPressed(BUTTON_2_PRESS) == 1) {
  8000eb6:	2001      	movs	r0, #1
  8000eb8:	f7ff fd6a 	bl	8000990 <isButtonPressed>
  8000ebc:	4603      	mov	r3, r0
  8000ebe:	2b01      	cmp	r3, #1
  8000ec0:	d10f      	bne.n	8000ee2 <modeRun+0x15a>
-				if (tempVal > 99) {
+				if (temp > 99) {
  8000ec2:	4b4d      	ldr	r3, [pc, #308]	; (8000ff8 <modeRun+0x270>)
  8000ec4:	681b      	ldr	r3, [r3, #0]
  8000ec6:	2b63      	cmp	r3, #99	; 0x63
  8000ec8:	dd02      	ble.n	8000ed0 <modeRun+0x148>
-					tempVal = 1;
+					temp = 1;
  8000eca:	4b4b      	ldr	r3, [pc, #300]	; (8000ff8 <modeRun+0x270>)
  8000ecc:	2201      	movs	r2, #1
  8000ece:	601a      	str	r2, [r3, #0]
 				}
-				tempVal++;
+				temp++;
  8000ed0:	4b49      	ldr	r3, [pc, #292]	; (8000ff8 <modeRun+0x270>)
  8000ed2:	681b      	ldr	r3, [r3, #0]
  8000ed4:	3301      	adds	r3, #1
  8000ed6:	4a48      	ldr	r2, [pc, #288]	; (8000ff8 <modeRun+0x270>)
  8000ed8:	6013      	str	r3, [r2, #0]
-				ledValueData = tempVal;
+				ledValueData = temp;
  8000eda:	4b47      	ldr	r3, [pc, #284]	; (8000ff8 <modeRun+0x270>)
  8000edc:	681b      	ldr	r3, [r3, #0]
  8000ede:	4a43      	ldr	r2, [pc, #268]	; (8000fec <modeRun+0x264>)
  8000ee0:	6013      	str	r3, [r2, #0]
 			}
-			//if we press button 3, system will save the change to red light
+			//press button 3
 			if (isButtonPressed(BUTTON_3_PRESS) == 1) {
  8000ee2:	2002      	movs	r0, #2
  8000ee4:	f7ff fd54 	bl	8000990 <isButtonPressed>
  8000ee8:	4603      	mov	r3, r0
  8000eea:	2b01      	cmp	r3, #1
  8000eec:	f040 80cf 	bne.w	800108e <modeRun+0x306>
-				redTime = tempVal;
+				redTime = temp;
  8000ef0:	4b41      	ldr	r3, [pc, #260]	; (8000ff8 <modeRun+0x270>)
  8000ef2:	681b      	ldr	r3, [r3, #0]
  8000ef4:	4a3f      	ldr	r2, [pc, #252]	; (8000ff4 <modeRun+0x26c>)
@@ -2056,7 +2055,7 @@ void modeRun(){
 			}
 			break;
  8000f00:	e0c5      	b.n	800108e <modeRun+0x306>
-			//MODE3 is similar to MODE2
+
 		case MODE3:
 			if (timer2_flag == 1) {
  8000f02:	4b39      	ldr	r3, [pc, #228]	; (8000fe8 <modeRun+0x260>)
@@ -2068,14 +2067,14 @@ void modeRun(){
  8000f0e:	f000 f99d 	bl	800124c <setTimer2>
 				blinkingYELLOW();
  8000f12:	f000 faa7 	bl	8001464 <blinkingYELLOW>
-				if (seg_counter == 2) {
+				if (counter == 2) {
  8000f16:	4b33      	ldr	r3, [pc, #204]	; (8000fe4 <modeRun+0x25c>)
  8000f18:	681b      	ldr	r3, [r3, #0]
  8000f1a:	2b02      	cmp	r3, #2
  8000f1c:	d105      	bne.n	8000f2a <modeRun+0x1a2>
 					segRun2();
  8000f1e:	f7ff fd23 	bl	8000968 <segRun2>
-					seg_counter = 0;
+					counter = 0;
  8000f22:	4b30      	ldr	r3, [pc, #192]	; (8000fe4 <modeRun+0x25c>)
  8000f24:	2200      	movs	r2, #0
  8000f26:	601a      	str	r2, [r3, #0]
@@ -2084,7 +2083,7 @@ void modeRun(){
 					segRun1();
  8000f2a:	f7ff fd09 	bl	8000940 <segRun1>
 				}
-				seg_counter++;
+				counter++;
  8000f2e:	4b2d      	ldr	r3, [pc, #180]	; (8000fe4 <modeRun+0x25c>)
  8000f30:	681b      	ldr	r3, [r3, #0]
  8000f32:	3301      	adds	r3, #1
@@ -2100,7 +2099,7 @@ void modeRun(){
 				setTimer2(500);
  8000f44:	f44f 70fa 	mov.w	r0, #500	; 0x1f4
  8000f48:	f000 f980 	bl	800124c <setTimer2>
-				tempVal = greenTime;
+				temp = greenTime;
  8000f4c:	4b2c      	ldr	r3, [pc, #176]	; (8001000 <modeRun+0x278>)
  8000f4e:	681b      	ldr	r3, [r3, #0]
  8000f50:	4a29      	ldr	r2, [pc, #164]	; (8000ff8 <modeRun+0x270>)
@@ -2127,23 +2126,23 @@ void modeRun(){
  8000f72:	4603      	mov	r3, r0
  8000f74:	2b01      	cmp	r3, #1
  8000f76:	d10f      	bne.n	8000f98 <modeRun+0x210>
-				if (tempVal > 99) {
+				if (temp > 99) {
  8000f78:	4b1f      	ldr	r3, [pc, #124]	; (8000ff8 <modeRun+0x270>)
  8000f7a:	681b      	ldr	r3, [r3, #0]
  8000f7c:	2b63      	cmp	r3, #99	; 0x63
  8000f7e:	dd02      	ble.n	8000f86 <modeRun+0x1fe>
-					tempVal = 1;
+					temp = 1;
  8000f80:	4b1d      	ldr	r3, [pc, #116]	; (8000ff8 <modeRun+0x270>)
  8000f82:	2201      	movs	r2, #1
  8000f84:	601a      	str	r2, [r3, #0]
 				}
-				tempVal++;
+				temp++;
  8000f86:	4b1c      	ldr	r3, [pc, #112]	; (8000ff8 <modeRun+0x270>)
  8000f88:	681b      	ldr	r3, [r3, #0]
  8000f8a:	3301      	adds	r3, #1
  8000f8c:	4a1a      	ldr	r2, [pc, #104]	; (8000ff8 <modeRun+0x270>)
  8000f8e:	6013      	str	r3, [r2, #0]
-				ledValueData = tempVal;
+				ledValueData = temp;
  8000f90:	4b19      	ldr	r3, [pc, #100]	; (8000ff8 <modeRun+0x270>)
  8000f92:	681b      	ldr	r3, [r3, #0]
  8000f94:	4a15      	ldr	r2, [pc, #84]	; (8000fec <modeRun+0x264>)
@@ -2155,7 +2154,7 @@ void modeRun(){
  8000f9e:	4603      	mov	r3, r0
  8000fa0:	2b01      	cmp	r3, #1
  8000fa2:	d176      	bne.n	8001092 <modeRun+0x30a>
-				yellowTime = tempVal;
+				yellowTime = temp;
  8000fa4:	4b14      	ldr	r3, [pc, #80]	; (8000ff8 <modeRun+0x270>)
  8000fa6:	681b      	ldr	r3, [r3, #0]
  8000fa8:	4a14      	ldr	r2, [pc, #80]	; (8000ffc <modeRun+0x274>)
@@ -2168,7 +2167,7 @@ void modeRun(){
 			}
 			break;
  8000fb4:	e06d      	b.n	8001092 <modeRun+0x30a>
-			//MODE4 is similar to MODE1
+
 		case MODE4:
 			if (timer2_flag == 1) {
  8000fb6:	4b0c      	ldr	r3, [pc, #48]	; (8000fe8 <modeRun+0x260>)
@@ -2180,14 +2179,14 @@ void modeRun(){
  8000fc2:	f000 f943 	bl	800124c <setTimer2>
 				blinkingGREEN();
  8000fc6:	f000 fa6f 	bl	80014a8 <blinkingGREEN>
-				if (seg_counter == 2) {
+				if (counter == 2) {
  8000fca:	4b06      	ldr	r3, [pc, #24]	; (8000fe4 <modeRun+0x25c>)
  8000fcc:	681b      	ldr	r3, [r3, #0]
  8000fce:	2b02      	cmp	r3, #2
  8000fd0:	d118      	bne.n	8001004 <modeRun+0x27c>
 					segRun2();
  8000fd2:	f7ff fcc9 	bl	8000968 <segRun2>
-					seg_counter = 0;
+					counter = 0;
  8000fd6:	4b03      	ldr	r3, [pc, #12]	; (8000fe4 <modeRun+0x25c>)
  8000fd8:	2200      	movs	r2, #0
  8000fda:	601a      	str	r2, [r3, #0]
@@ -2206,7 +2205,7 @@ void modeRun(){
 					segRun1();
  8001004:	f7ff fc9c 	bl	8000940 <segRun1>
 				}
-				seg_counter++;
+				counter++;
  8001008:	4b24      	ldr	r3, [pc, #144]	; (800109c <modeRun+0x314>)
  800100a:	681b      	ldr	r3, [r3, #0]
  800100c:	3301      	adds	r3, #1
@@ -2223,7 +2222,7 @@ void modeRun(){
  800101e:	4b20      	ldr	r3, [pc, #128]	; (80010a0 <modeRun+0x318>)
  8001020:	2205      	movs	r2, #5
  8001022:	601a      	str	r2, [r3, #0]
-				seg_counter = 2;
+				counter = 2;
  8001024:	4b1d      	ldr	r3, [pc, #116]	; (800109c <modeRun+0x314>)
  8001026:	2202      	movs	r2, #2
  8001028:	601a      	str	r2, [r3, #0]
@@ -2243,23 +2242,23 @@ void modeRun(){
  8001042:	4603      	mov	r3, r0
  8001044:	2b01      	cmp	r3, #1
  8001046:	d10f      	bne.n	8001068 <modeRun+0x2e0>
-				if (tempVal > 99) {
+				if (temp > 99) {
  8001048:	4b17      	ldr	r3, [pc, #92]	; (80010a8 <modeRun+0x320>)
  800104a:	681b      	ldr	r3, [r3, #0]
  800104c:	2b63      	cmp	r3, #99	; 0x63
  800104e:	dd02      	ble.n	8001056 <modeRun+0x2ce>
-					tempVal = 1;
+					temp = 1;
  8001050:	4b15      	ldr	r3, [pc, #84]	; (80010a8 <modeRun+0x320>)
  8001052:	2201      	movs	r2, #1
  8001054:	601a      	str	r2, [r3, #0]
 				}
-				tempVal++;
+				temp++;
  8001056:	4b14      	ldr	r3, [pc, #80]	; (80010a8 <modeRun+0x320>)
  8001058:	681b      	ldr	r3, [r3, #0]
  800105a:	3301      	adds	r3, #1
  800105c:	4a12      	ldr	r2, [pc, #72]	; (80010a8 <modeRun+0x320>)
  800105e:	6013      	str	r3, [r2, #0]
-				ledValueData = tempVal;
+				ledValueData = temp;
  8001060:	4b11      	ldr	r3, [pc, #68]	; (80010a8 <modeRun+0x320>)
  8001062:	681b      	ldr	r3, [r3, #0]
  8001064:	4a11      	ldr	r2, [pc, #68]	; (80010ac <modeRun+0x324>)
@@ -2271,7 +2270,7 @@ void modeRun(){
  800106e:	4603      	mov	r3, r0
  8001070:	2b01      	cmp	r3, #1
  8001072:	d110      	bne.n	8001096 <modeRun+0x30e>
-				greenTime = tempVal;
+				greenTime = temp;
  8001074:	4b0c      	ldr	r3, [pc, #48]	; (80010a8 <modeRun+0x320>)
  8001076:	681b      	ldr	r3, [r3, #0]
  8001078:	4a0d      	ldr	r2, [pc, #52]	; (80010b0 <modeRun+0x328>)

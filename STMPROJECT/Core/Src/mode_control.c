@@ -7,36 +7,36 @@
 
 #include "mode_control.h"
 
-int seg_counter;
-int tempVal;
+int counter;
+int temp;
 
 void modeRun(){
 	switch(mode){
 	case INIT:
-		seg_counter = 2;
+		counter = 2;
 		segRun1();
 		setTimer2(500);
 		mode = MODE1;
 		break;
 	case MODE1:
-		//In MODE1, we have 2 traffic systems to control
+		//MODE 1 -> control 2 traffic system
 		mode1Run();
 		if (timer2_flag == 1) {
 			setTimer2(500);
-			if (seg_counter == 2) {
+			if (counter == 2) {
 				segRun2();
 				ledValueData--;
 				ledModeData--;
-				seg_counter = 0;
+				counter = 0;
 			} else {
 				segRun1();
 			}
-			seg_counter++;
+			counter++;
 		}
-		//if we press button 1, system will change to MODE2
+		//MODE 2 -> Modify LED RED
 		if (isButtonPressed(BUTTON_1_PRESS) == 1) {
 			setTimer2(500);
-			tempVal = redTime;
+			temp = redTime;
 			ledModeData = MODE2;
 			ledValueData = redTime;
 			mode = MODE2;
@@ -44,103 +44,102 @@ void modeRun(){
 		}
 		break;
 	case MODE2:
-			//In MODE2, we use button 2 and 3 to adjust duration of red light
 			if (timer2_flag == 1) {
 				setTimer2(500);
 				blinkingRED();
-				if (seg_counter == 2) {
+				if (counter == 2) {
 					segRun2();
-					seg_counter = 0;
+					counter = 0;
 				} else {
 					segRun1();
 				}
-				seg_counter++;
+				counter++;
 			}
-			//if we press button 1, system will change to MODE3
+			//press button 1
 			if (isButtonPressed(BUTTON_1_PRESS) == 1) {
 				setTimer2(500);
-				tempVal = yellowTime;
+				temp = yellowTime;
 				ledModeData = MODE3;
 				ledValueData = yellowTime;
 				mode = MODE3;
 				offAllLeds();
 			}
-			//if we press button 2, duration of red light will increase 1s
+			//press button 2
 			if (isButtonPressed(BUTTON_2_PRESS) == 1) {
-				if (tempVal > 99) {
-					tempVal = 1;
+				if (temp > 99) {
+					temp = 1;
 				}
-				tempVal++;
-				ledValueData = tempVal;
+				temp++;
+				ledValueData = temp;
 			}
-			//if we press button 3, system will save the change to red light
+			//press button 3
 			if (isButtonPressed(BUTTON_3_PRESS) == 1) {
-				redTime = tempVal;
+				redTime = temp;
 				ledValueData = redTime;
 			}
 			break;
-			//MODE3 is similar to MODE2
+
 		case MODE3:
 			if (timer2_flag == 1) {
 				setTimer2(500);
 				blinkingYELLOW();
-				if (seg_counter == 2) {
+				if (counter == 2) {
 					segRun2();
-					seg_counter = 0;
+					counter = 0;
 				} else {
 					segRun1();
 				}
-				seg_counter++;
+				counter++;
 			}
 			if (isButtonPressed(BUTTON_1_PRESS) == 1) {
 				setTimer2(500);
-				tempVal = greenTime;
+				temp = greenTime;
 				ledModeData = MODE4;
 				ledValueData = greenTime;
 				mode = MODE4;
 				offAllLeds();
 			}
 			if (isButtonPressed(BUTTON_2_PRESS) == 1) {
-				if (tempVal > 99) {
-					tempVal = 1;
+				if (temp > 99) {
+					temp = 1;
 				}
-				tempVal++;
-				ledValueData = tempVal;
+				temp++;
+				ledValueData = temp;
 			}
 			if (isButtonPressed(BUTTON_3_PRESS) == 1) {
-				yellowTime = tempVal;
+				yellowTime = temp;
 				ledValueData = yellowTime;
 			}
 			break;
-			//MODE4 is similar to MODE1
+
 		case MODE4:
 			if (timer2_flag == 1) {
 				setTimer2(500);
 				blinkingGREEN();
-				if (seg_counter == 2) {
+				if (counter == 2) {
 					segRun2();
-					seg_counter = 0;
+					counter = 0;
 				} else {
 					segRun1();
 				}
-				seg_counter++;
+				counter++;
 			}
 			if (isButtonPressed(BUTTON_1_PRESS) == 1) {
 				state = RED_GREEN_INIT;
-				seg_counter = 2;
+				counter = 2;
 				segRun1();
 				setTimer2(500);
 				mode = MODE1;
 			}
 			if (isButtonPressed(BUTTON_2_PRESS) == 1) {
-				if (tempVal > 99) {
-					tempVal = 1;
+				if (temp > 99) {
+					temp = 1;
 				}
-				tempVal++;
-				ledValueData = tempVal;
+				temp++;
+				ledValueData = temp;
 			}
 			if (isButtonPressed(BUTTON_3_PRESS) == 1) {
-				greenTime = tempVal;
+				greenTime = temp;
 				ledValueData = greenTime;
 			}
 			break;

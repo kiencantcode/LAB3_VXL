@@ -10,8 +10,8 @@
 
 #include "global.h"
 
-extern int seg_counter;
-extern int tempVal;
+extern int counter;
+extern int temp;
 
 void modeRun();
 
