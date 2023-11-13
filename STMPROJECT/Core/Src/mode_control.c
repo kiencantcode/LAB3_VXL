@@ -21,18 +21,6 @@ void modeRun(){
 	case MODE1:
 		//MODE 1 -> control 2 traffic system
 		mode1Run();
-		if (timer2_flag == 1) {
-			setTimer2(500);
-			if (counter == 2) {
-				segRun2();
-				ledValueData--;
-				ledModeData--;
-				counter = 0;
-			} else {
-				segRun1();
-			}
-			counter++;
-		}
 		//MODE 2 -> Modify LED RED
 		if (isButtonPressed(BUTTON_1_PRESS) == 1) {
 			setTimer2(500);

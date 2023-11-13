@@ -25,6 +25,7 @@
 #include "software_timer.h"
 #include "normal_mode.h"
 #include "mode_control.h"
+#include "global.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -100,6 +101,10 @@ int main(void)
   {
     /* USER CODE END WHILE */
 	  modeRun();
+	  if (timer2_flag == 1) {
+	  	processTimer2();
+	  	setTimer2(500);
+	  }
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */

@@ -6,7 +6,8 @@
  */
 
 #include "software_timer.h"
-
+#include "global.h"
+#include "7seg.h"
 
 #define TIMER_CYCLE 10
 int timer1_flag = 0;
@@ -31,6 +32,18 @@ void setTimer2(int duration) {
 void setTimer3(int duration) {
 	timer3_counter = duration / TIMER_CYCLE;
 	timer3_flag = 0;
+}
+
+void processTimer2(){
+	if (counter == 2) {
+		segRun2();
+		ledValueData--;
+		ledModeData--;
+		counter = 0;
+	} else {
+		segRun1();
+	}
+		counter++;
 }
 
 void timerRun() {
